@@ -1,0 +1,242 @@
+/* === 全局基础 === */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 15px; scroll-behavior: smooth; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", "Helvetica Neue", sans-serif;
+  background: #F0F2F5; color: #2C3E50; line-height: 1.6; min-height: 100vh;
+}
+
+/* === Header === */
+.header {
+  background: linear-gradient(135deg, #1a237e 0%, #283593 100%);
+  color: #fff; text-align: center; padding: 24px 20px 20px;
+}
+.header-title { font-size: 1.6rem; font-weight: 700; letter-spacing: 2px; }
+.header-subtitle { font-size: 0.85rem; opacity: 0.8; margin-top: 4px; }
+
+/* === Tab Bar === */
+.tab-bar {
+  display: flex; justify-content: center; gap: 0;
+  background: #fff; border-bottom: 2px solid #E0E0E0; position: sticky; top: 0; z-index: 50;
+}
+.tab-btn {
+  background: none; border: none; padding: 14px 48px; font-size: 1rem; font-weight: 600;
+  color: #666; cursor: pointer; position: relative; transition: all 0.2s;
+}
+.tab-btn:hover { color: #1a237e; background: #F5F7FA; }
+.tab-btn.active { color: #1a237e; }
+.tab-btn.active::after {
+  content: ''; position: absolute; bottom: -2px; left: 0; right: 0; height: 3px;
+  background: #E74C3C; border-radius: 2px 2px 0 0;
+}
+
+/* === Filter Panel === */
+.filter-panel {
+  background: #fff; padding: 16px 24px; border-bottom: 1px solid #E8E8E8;
+  position: sticky; top: 53px; z-index: 40;
+}
+.filter-row {
+  display: flex; align-items: flex-end; gap: 16px; flex-wrap: wrap; margin-bottom: 10px;
+}
+.filter-row:last-child { margin-bottom: 0; }
+.filter-group { display: flex; flex-direction: column; gap: 4px; }
+.filter-label { font-size: 0.78rem; color: #888; font-weight: 600; text-transform: uppercase; }
+.filter-range { display: flex; align-items: center; gap: 6px; }
+.filter-input {
+  width: 100px; padding: 6px 10px; border: 1px solid #D0D0D0; border-radius: 6px;
+  font-size: 0.9rem; transition: border 0.2s;
+}
+.filter-input:focus { outline: none; border-color: #1a237e; box-shadow: 0 0 0 2px rgba(26,35,126,0.12); }
+.filter-search { width: 280px; }
+.range-sep { color: #999; font-weight: 600; }
+
+.category-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+.chip-label {
+  display: flex; align-items: center; gap: 4px; padding: 5px 12px;
+  background: #F5F6FA; border: 1px solid #E0E0E0; border-radius: 20px;
+  font-size: 0.82rem; cursor: pointer; transition: all 0.2s; user-select: none;
+}
+.chip-label:hover { background: #EBF5FB; border-color: #2471A3; }
+.chip-label input { display: none; }
+.chip-label:has(input:checked) { background: #1a237e; color: #fff; border-color: #1a237e; }
+
+.btn {
+  padding: 7px 20px; border-radius: 6px; font-size: 0.88rem; font-weight: 600; cursor: pointer;
+  border: 1px solid transparent; transition: all 0.2s;
+}
+.btn-reset { background: #fff; color: #888; border-color: #D0D0D0; }
+.btn-reset:hover { background: #f5f5f5; color: #E74C3C; border-color: #E74C3C; }
+.btn-sm { padding: 4px 14px; font-size: 0.8rem; }
+.btn-xs { padding: 2px 10px; font-size: 0.75rem; border-radius: 4px; }
+.btn-toggle-group { background: #EBF5FB; color: #2471A3; }
+.btn-toggle-group:hover { background: #2471A3; color: #fff; }
+.btn-toggle-card { background: #F5F6FA; color: #666; }
+.btn-toggle-card:hover { background: #E0E0E0; }
+.btn-empl { background: #FEF5E7; color: #D35400; border: 1px solid #F0C78E; }
+.btn-empl:hover { background: #D35400; color: #fff; }
+
+.filter-stats {
+  font-size: 0.82rem; color: #888; padding-top: 10px;
+  border-top: 1px dashed #E8E8E8; margin-top: 6px;
+}
+.filter-stats strong { color: #1a237e; }
+
+.filter-group-categories { flex: 1; min-width: 300px; }
+.filter-group-search { flex: 1; }
+
+/* === Rank Lookup Panel (standalone) === */
+.rank-lookup-panel {
+  max-width: 1400px; margin: 0 auto; padding: 14px 24px;
+}
+.rank-lookup-header { margin-bottom: 8px; }
+.rank-lookup-title { font-size: 0.95rem; font-weight: 700; color: #1a237e; }
+.rank-lookup-desc { font-size: 0.75rem; color: #888; margin-top: 2px; }
+.rank-lookup-input-row { display: flex; align-items: center; gap: 10px; margin-bottom: 0; }
+.btn-rank-lookup {
+  background: #1a237e; color: #fff; padding: 6px 20px; font-size: 0.85rem;
+  border-radius: 6px; font-weight: 600; cursor: pointer; border: none; transition: background 0.2s;
+}
+.btn-rank-lookup:hover { background: #283593; }
+
+.rank-result-row { margin-top: 10px; font-size: 0.85rem; color: #2C3E50; min-height: 0; }
+.rank-result-row.has-result {
+  background: #F5F6FA; border-radius: 6px; padding: 8px 14px;
+  display: flex; align-items: center; flex-wrap: wrap; gap: 0;
+}
+.rank-item { white-space: nowrap; }
+.rank-item strong { color: #1a237e; font-weight: 700; }
+.rank-sep { color: #ccc; margin: 0 10px; }
+.rank-result-note { font-size: 0.7rem; color: #999; margin-top: 6px; }
+
+@media (max-width: 767px) {
+  .rank-lookup-panel { padding: 12px 14px; }
+  .rank-result-row.has-result { font-size: 0.78rem; padding: 6px 10px; }
+  .rank-sep { margin: 0 6px; }
+}
+
+/* === Main Content === */
+.main-content { max-width: 1400px; margin: 0 auto; padding: 20px 24px; }
+
+/* === Group Sections === */
+.uni-group { margin-bottom: 32px; }
+.group-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 20px; background: #fff; border-radius: 10px; margin-bottom: 12px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+.group-title { font-size: 1.15rem; font-weight: 700; color: #1a237e; }
+.group-count { font-size: 0.85rem; color: #888; font-weight: 400; }
+.group-cards { display: flex; flex-direction: column; gap: 10px; }
+
+/* === University Card === */
+.uni-card {
+  background: #fff; border-radius: 10px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  overflow: hidden; transition: box-shadow 0.2s;
+}
+.uni-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.1); }
+.uni-card-header {
+  display: flex; align-items: center; padding: 14px 20px; cursor: pointer;
+  border-bottom: 1px solid transparent; transition: background 0.2s;
+  gap: 16px;
+}
+.uni-card-header:hover { background: #FAFBFC; }
+.uni-card.expanded .uni-card-header { border-bottom-color: #F0F0F0; }
+.uni-info { display: flex; align-items: center; gap: 10px; flex: 1; }
+.uni-name { font-size: 1.05rem; font-weight: 700; color: #2C3E50; }
+.uni-location { font-size: 0.8rem; color: #999; }
+.uni-badge {
+  font-size: 0.7rem; padding: 2px 10px; border-radius: 12px;
+  background: #EBF5FB; color: #2471A3; font-weight: 600;
+}
+.uni-summary { display: flex; gap: 16px; align-items: center; }
+.uni-major-count { font-size: 0.82rem; color: #888; }
+.uni-score-range { font-size: 0.82rem; color: #D35400; font-weight: 600; }
+
+.uni-card-body { display: none; overflow-x: auto; }
+.uni-card.expanded .uni-card-body { display: block; }
+
+/* === Major Table === */
+.major-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; min-width: 900px; }
+.major-table thead { background: #F5F6FA; }
+.major-table th {
+  padding: 10px 12px; text-align: left; font-weight: 600; color: #555;
+  font-size: 0.8rem; border-bottom: 2px solid #E0E0E0; white-space: nowrap;
+}
+.major-table td { padding: 10px 12px; border-bottom: 1px solid #F0F0F0; vertical-align: top; }
+.col-name { min-width: 200px; }
+.col-year { min-width: 130px; white-space: nowrap; }
+.col-empl { min-width: 70px; text-align: center; }
+
+.major-cat-tag {
+  display: inline-block; font-size: 0.65rem; padding: 1px 6px; border-radius: 8px;
+  color: #fff; margin-right: 6px; vertical-align: middle; font-weight: 600;
+}
+.adm-score {
+  display: block; font-size: 1rem; font-weight: 700; color: inherit;
+}
+.adm-detail { display: block; font-size: 0.72rem; color: #888; margin-top: 2px; }
+
+.major-bold .col-name { font-weight: 700; }
+.major-row { cursor: pointer; transition: filter 0.15s; }
+.major-row:hover { filter: brightness(0.95); }
+
+/* === Empty State === */
+.empty-state { text-align: center; padding: 80px 20px; color: #888; }
+.empty-icon { font-size: 3rem; margin-bottom: 12px; }
+
+/* === Loading === */
+.loading { text-align: center; padding: 80px 20px; color: #888; font-size: 1rem; }
+
+/* === Modal === */
+.modal-overlay {
+  display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5);
+  z-index: 999; align-items: center; justify-content: center;
+}
+.modal-overlay.active { display: flex; }
+.modal {
+  background: #fff; border-radius: 14px; max-width: 560px; width: 90vw; max-height: 80vh;
+  overflow-y: auto; position: relative; box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+  padding: 28px;
+}
+.modal-close {
+  position: absolute; top: 12px; right: 16px; background: none; border: none;
+  font-size: 1.5rem; cursor: pointer; color: #999; line-height: 1;
+}
+.modal-close:hover { color: #E74C3C; }
+.modal-title { font-size: 1.15rem; font-weight: 700; margin-bottom: 12px; color: #1a237e; }
+.empl-section { margin-top: 16px; }
+.empl-section h4 { font-size: 0.85rem; color: #888; margin-bottom: 8px; font-weight: 600; }
+.empl-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.empl-tag {
+  padding: 4px 12px; background: #EBF5FB; color: #2471A3; border-radius: 14px;
+  font-size: 0.8rem; font-weight: 500;
+}
+.empl-tag-role { background: #FEF5E7; color: #D35400; }
+.empl-tag-employer { background: #FDEDEC; color: #C0392B; }
+.empl-salary { font-size: 1.05rem; font-weight: 700; color: #C0392B; margin-top: 4px; }
+
+/* === Responsive === */
+@media (max-width: 1023px) {
+  .filter-row { flex-direction: column; align-items: stretch; }
+  .filter-input { width: 100%; }
+  .filter-search { width: 100%; }
+  .filter-group-categories { min-width: auto; }
+  .major-table { min-width: 750px; }
+  .col-year { min-width: 110px; }
+}
+
+@media (max-width: 767px) {
+  .header-title { font-size: 1.2rem; }
+  .tab-btn { padding: 12px 28px; font-size: 0.9rem; }
+  .filter-panel { padding: 12px 14px; }
+  .main-content { padding: 12px 14px; }
+  .uni-card-header { flex-wrap: wrap; gap: 8px; padding: 12px 14px; }
+  .uni-summary { flex-direction: column; gap: 4px; align-items: flex-start; }
+  .major-table { min-width: 650px; font-size: 0.78rem; }
+  .major-table th, .major-table td { padding: 6px 8px; }
+  .col-year { min-width: 100px; }
+  .adm-score { font-size: 0.88rem; }
+  .adm-detail { font-size: 0.68rem; }
+  .category-chips { gap: 4px; }
+  .chip-label { font-size: 0.74rem; padding: 4px 8px; }
+}

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>四川省高考录取数据查询系统</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="header">
+  <h1 class="header-title">四川省高考录取数据查询系统</h1>
+  <p class="header-subtitle">985 · 211 高校工科专业录取信息（2022—2025）</p>
+</header>
+
+<nav class="tab-bar" id="tabBar">
+  <button class="tab-btn active" data-tab="985">985 高校</button>
+  <button class="tab-btn" data-tab="211">211 顶尖工科</button>
+</nav>
+
+<div class="filter-panel" id="filterPanel">
+  <div class="filter-row">
+    <div class="filter-group">
+      <label class="filter-label">分数范围</label>
+      <div class="filter-range">
+        <input type="number" id="scoreMin" class="filter-input" placeholder="最低分" min="500" max="750" step="1">
+        <span class="range-sep">—</span>
+        <input type="number" id="scoreMax" class="filter-input" placeholder="最高分" min="500" max="750" step="1">
+      </div>
+    </div>
+    <div class="filter-group">
+      <label class="filter-label">位次范围</label>
+      <div class="filter-range">
+        <input type="number" id="rankMin" class="filter-input" placeholder="最低位次" min="1" step="1">
+        <span class="range-sep">—</span>
+        <input type="number" id="rankMax" class="filter-input" placeholder="最高位次" min="1" step="1">
+      </div>
+    </div>
+    <div class="filter-group filter-group-categories">
+      <label class="filter-label">专业类别</label>
+      <div class="category-chips" id="categoryChips">
+        <label class="chip-label"><input type="checkbox" value="CORE_ENGINEERING" checked> 王牌/核心工科</label>
+        <label class="chip-label"><input type="checkbox" value="HOT_ENGINEERING" checked> 热门重点工科</label>
+        <label class="chip-label"><input type="checkbox" value="TRADITIONAL_ENGINEERING" checked> 传统优势理工科</label>
+        <label class="chip-label"><input type="checkbox" value="COMPREHENSIVE_OTHER" checked> 其他综合性</label>
+      </div>
+    </div>
+  </div>
+  <div class="filter-row">
+    <div class="filter-group filter-group-search">
+      <label class="filter-label">关键词搜索</label>
+      <input type="text" id="searchInput" class="filter-input filter-search" placeholder="搜索学校、专业或就业方向...">
+    </div>
+    <button class="btn btn-reset" id="resetBtn">重置筛选</button>
+  </div>
+  <div class="filter-stats" id="filterStats"></div>
+</div>
+
+<!-- 位次查分：独立面板 -->
+<div class="rank-lookup-panel" id="rankLookupPanel">
+  <div class="rank-lookup-header">
+    <h3 class="rank-lookup-title">位次查分</h3>
+    <p class="rank-lookup-desc">输入四川省高考位次，查询各年份对应的等效分数（数据来源：四川省教育考试院一分一段表）</p>
+  </div>
+  <div class="rank-lookup-input-row">
+    <input type="text" id="rankLookupInput" class="filter-input" placeholder="输入位次，如：1000" inputmode="numeric" pattern="[0-9]*" style="width:160px;" onkeydown="if(event.key==='Enter'){event.preventDefault();RankLookup.doLookup();}">
+    <button class="btn btn-rank-lookup" id="rankLookupBtn" onclick="RankLookup.doLookup()">查分</button>
+  </div>
+  <div id="rankResult" class="rank-result-row"></div>
+  <p class="rank-result-note" id="rankResultNote" style="display:none;">* 以上分数根据四川省教育考试院公布的各年度一分一段表换算，仅供参考</p>
+</div>
+
+<main class="main-content" id="mainContent">
+  <div class="loading">加载中...</div>
+</main>
+
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" id="modal">
+    <button class="modal-close" id="modalClose">&times;</button>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<script src="js/constants.js"></script>
+<script src="js/data-985.js"></script>
+<script src="js/data-211.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/filters.js"></script>
+<script src="js/render.js"></script>
+<script src="js/rank-lookup.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
