@@ -42,34 +42,50 @@ RankLookup.rankToScore = function(rank, year) {
   return scores[scores.length - 1];
 };
 
-// 查分按钮点击入口
-RankLookup.doLookup = function() {
-  var input = document.getElementById('rankLookupInput');
-  var val = input ? input.value.trim() : '';
-  var rank = parseInt(val, 10);
-  RankLookup.render(rank);
-};
-
 // 显示位次查询结果
 RankLookup.render = function(rank) {
   var container = document.getElementById('rankResult');
-  var note = document.getElementById('rankResultNote');
   if (!container) return;
 
-  if (!rank || rank < 1) {
-    container.innerHTML = '';
-    container.className = 'rank-result-row';
-    if (note) note.style.display = 'none';
+  if (!rank || isNaN(rank) || rank < 1) {
+    container.innerHTML = '<p class="rank-result-hint">请输入有效的位次后点击"查分"</p>';
     return;
   }
 
   var years = [2025, 2024, 2023, 2022];
-  var parts = [];
-  for (var i = 0; i < years.length; i++) {
-    var score = RankLookup.rankToScore(rank, years[i]);
-    parts.push('<span class="rank-item"><strong>' + years[i] + '年</strong> ' + score + '分</span>');
-  }
-  container.innerHTML = parts.join('<span class="rank-sep">|</span>');
-  container.className = 'rank-result-row has-result';
-  if (note) note.style.display = '';
+  var html = '<div class="rank-result-grid">';
+  years.forEach(function(y) {
+    var score = RankLookup.rankToScore(rank, y);
+    html += '<div class="rank-result-card">';
+    html += '<span class="rank-result-text">' + y + '年/' + score + '分</span>';
+    html += '</div>';
+  });
+  html += '</div>';
+  html += '<p class="rank-result-note">* 以上分数根据四川省教育考试院公布的各年度一分一段表换算，不同年份考试难度不同，相同位次对应分数不同，仅供参考</p>';
+  container.innerHTML = html;
+};
+
+// 初始化事件
+RankLookup.init = function() {
+  var input = document.getElementById('rankLookupInput');
+  var btn = document.getElementById('rankLookupBtn');
+  if (!input || !btn) return;
+
+  var doLookup = function() {
+    var val = input.value.trim();
+    var rank = parseInt(val, 10);
+    RankLookup.render(rank);
+  };
+
+  btn.addEventListener('click', doLookup);
+  input.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      doLookup();
+    }
+  });
+
+  // 预设示例
+  input.value = '1000';
+  RankLookup.render(1000);
 };

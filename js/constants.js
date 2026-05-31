@@ -40,7 +40,7 @@ var UNI_211_ORDER = [
 
 // 分组标题（985 下再分组）
 var UNI_985_GROUPS = [
-  { key: 'C9',              label: 'C9 联盟',            ids: ['tsinghua','pku','fudan','sjtu','nju','zju','ustc','hit','xjtu'] },
+  { key: 'C9',              label: 'C9 联盟',            ids: ['tsinghua','pku','fudan','sjtu','nju','zju','ustc','hit','hitsz','xjtu'] },
   { key: 'STRONG_ENGINEERING', label: '强工科',          ids: ['tongji','buaa','bit','tju','hust','seu','scut','dlut','nwpu','uestc','neu','csu','hnu','cqu'] },
   { key: 'COMPREHENSIVE',      label: '综合性',           ids: ['whu','nankai','sysu','xmu','scu','sdu','jlu','lzu','ouc','nwafu','muc','ecnu','bnu','ruc','cau','nudt'] }
 ];

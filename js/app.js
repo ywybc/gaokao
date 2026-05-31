@@ -82,6 +82,7 @@
     initFilters();
     initModal();
     initHashChange();
+    RankLookup.init();
     Render.main();
   }
 
